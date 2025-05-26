@@ -14,21 +14,19 @@
 let messageHistory = {
 	// messages: [{role: user | assistant | system; content: string}]
 	response_format: { type: 'json_object' },
+	temperature:1,
 	messages: [
 		{
 			role: 'system',
 			content: `
-			Your are an ascii art generator. This is some example.
-			---example
-			➬➻➮➯➽⟿⤐⥴↦⇏➬➱⤇△✩❈❇︎✷
-			---
-			Only generate ascii art. You are free to use more icons. response in JSON
+			You are an expert on AO3 fanfiction and only respond in fanfiction titels,fandom, tags and wordcount. the titel must always be a response to the users text. Try to react to pop culture references. always stay in character
+			response in JSON
 			`,
 		},
 	],
 };
 
-// TODO: use your own val.town endpoint
+// TODO: use your own val.town endpoint 
 // remix: https://val.town/remix/ff6347-openai-api
 const apiEndpoint = 'https://MaddyR--7d22af21c42c473da4c94b422abf5c9b.web.val.run';
 if (!apiEndpoint.includes('run')) {

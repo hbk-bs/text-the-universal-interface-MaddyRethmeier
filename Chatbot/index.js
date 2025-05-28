@@ -41,7 +41,7 @@ For every user input, you will generate the following fanfiction details:
     
     {
   "title": "Your Generated Title Here",
-  ""fandom": "Your Generated Fandom Here",
+  "fandom": "Your Generated Fandom Here",
   "tags": "Tag 1, Tag 2, Tag 3, ..., Tag N",
   "word_count": "Your Generated Word Count Here",
   "prompt": "Your generated prompt here."

@@ -1,0 +1,181 @@
+/* Universal box-sizing and reset for padding/margin */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+/* Base HTML and Body styling for height and font */
+html,
+body {
+  height: 100%;
+  /* AO3-like font stack, prioritizing sans-serif */
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: normal;
+  /* AO3 background color */
+  background-color: #f7f7f7;
+  color: #333; /* Standard text color */
+}
+
+/* --- New Header Banner Styles --- */
+header {
+    background-color: #990000; /* AO3 primary red color */
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Subtle shadow for depth */
+    margin-bottom: 16px; /* Space between banner and main content */
+}
+
+.banner h1 {
+    font-size: 2.5em;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.banner p {
+    font-size: 1.1em;
+    opacity: 0.9;
+}
+/* --- End New Header Banner Styles --- */
+
+
+/* Main container styling */
+main {
+  width: 700px;
+  /* Adjust height to accommodate the banner, or remove height: 100% if main should only take content space */
+  /* height: 100%; */ /* Removed 100% height to allow banner space naturally */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 8px;
+  /* AO3 subtle border */
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  background-color: #fff; /* White background for the main content area */
+  min-height: calc(100vh - 100px); /* Adjust based on banner height, ensure it fills screen somewhat */
+}
+
+/* Styling for form elements */
+form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  background-color: #fff; /* White background for the form area */
+  border-bottom: 1px solid #eee; /* Light separator below search bar */
+  border-radius: 4px 4px 0 0; /* Rounded top corners for the form area */
+}
+
+/* --- Google Search Bar Styling --- */
+input[type='text'] {
+  flex-grow: 1;
+  height: 44px; /* Google's search bar height */
+  padding: 0 16px; /* Padding for text inside */
+  font-size: 1.1em; /* Slightly larger font */
+  border: 1px solid #dfe1e5; /* Google's light gray border */
+  border-radius: 22px; /* Half of height for pill shape (44px / 2 = 22px) */
+  outline: none; /* Remove default blue outline */
+  box-shadow: none; /* Start with no shadow */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Smooth transition for focus */
+
+  &:focus {
+    border-color: #ccc; /* Border color on focus, slightly darker */
+    /* Google's subtle box-shadow on focus */
+    box-shadow: 0 1px 6px rgba(32,33,36,.28);
+  }
+}
+
+/* --- Button Styling (adjusted for alignment with new input height) --- */
+button {
+  height: 44px; /* Match the new input height */
+  padding: 0 15px;
+  background-color: #990000; /* AO3 primary button color */
+  color: #fff;
+  border: 1px solid #800000; /* Darker red border */
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #660000; /* Darker red on hover */
+    border-color: #4d0000;
+  }
+
+  &:active {
+    background-color: #330000; /* Even darker on active */
+    border-color: #1a0000;
+  }
+}
+
+/* --- Styles for the results display area --- */
+#results-display {
+  width: 100%;
+  flex-grow: 1; /* Allow it to take available space */
+  background-color: #f0f0f0; /* Lighter background for results */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow-y: auto; /* Enable scrolling if content is long */
+  line-height: 1.6; /* Improve readability */
+  color: #333;
+}
+
+#results-display h2 { /* Added style for the result heading */
+    color: #990000;
+    margin-bottom: 1em;
+    font-size: 1.6em;
+}
+
+/* --- New style for the "You searched for:" line --- */
+#results-display .search-query-info {
+    margin-bottom: 1.5em; /* Add some space below the search query info */
+    font-size: 0.95em;
+    color: #666; /* A slightly subdued color */
+}
+
+#results-display .search-query-info strong {
+    color: #333; /* Make the actual search term stand out */
+    font-weight: bold;
+}
+/* --- End new style --- */
+
+
+#results-display p {
+    margin-bottom: 1em; /* Spacing between paragraphs */
+}
+
+#results-display p:last-child {
+    margin-bottom: 0;
+}
+
+#results-display strong {
+    color: #990000; /* Highlight strong text like AO3 headings */
+}
+
+/* Styles for temporary messages within results-display */
+#results-display .message-temp {
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#results-display .message-temp.thinking {
+    background-color: #fcf8e3; /* Light yellow for thinking messages */
+    color: #8a6d3b; /* Darker text for thinking messages */
+    border: 1px solid #faebcc;
+    font-style: italic;
+}
+
+#results-display .message-temp.error {
+    background-color: #f2dede; /* Light red for error messages */
+    color: #a94442; /* Darker text for error messages */
+    border: 1px solid #ebccd1;
+}

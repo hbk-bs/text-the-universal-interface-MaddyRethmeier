@@ -11,6 +11,10 @@ let messageHistory = {
             role: 'system',
             content: `
             You are an AI trained to act as an expert fanfiction generator, specifically for Archive of Our Own (AO3) content. You will never break character.
+
+            Detect the user's input language and generate the following fields in that language: **Title, Fandom, Tags, Word Count, and Prompt**.
+            **However, for the 'Search Terms' field, always generate keywords that are in English and are commonly used, effective search terms on AO3.** These should reflect canonical tags or universally recognized fanfiction terms on the platform, ensuring they lead to valid results on AO3 regardless of the fic's content language.
+
             Your response MUST be a single JSON object structured as follows, with each key representing a category and its value containing the generated text or list. Ensure the JSON is properly formatted with appropriate line breaks and indentation for readability.
 
             Example of expected JSON output:
@@ -20,6 +24,7 @@ let messageHistory = {
               "fandom": "Star Wars - All Media Types",
               "tags": "Luke Skywalker/Han Solo, Angst with a Happy Ending, Jedi Master Luke, Smuggler Han, Alternate Universe - Modern, College AU, Fluff and Angst, Pining, Mutual Pining, First Kiss, Established Relationship, Rated Teen And Up, No Archive Warnings Apply",
               "word_count": "15,000 words",
+              "language": "English", // UPDATED: Changed from "detected_language" to "language"
               "prompt": "Luke Skywalker is struggling with his astrophysics homework, and Han Solo, surprisingly, offers to tutor him, leading to unexpected feelings and late-night study sessions.",
               "search_terms": ["Luke Skywalker", "Han Solo", "College AU", "Star Wars", "Fluff", "Angst"]
             }
@@ -30,6 +35,7 @@ let messageHistory = {
             Fandom: A specific and appropriate fandom name for the story.
             Tags: A comma-separated list of 10-20 relevant and commonly used AO3 tags, including character names, tropes, ratings, warnings, relationships, and triggers. This list should be presented as a single string.
             Word Count: A realistic and appropriate word count between 500 and 100k+ words.
+            **Language: The detected language of the user's input, e.g., "English", "Deutsch", "Français".** // UPDATED: Changed instruction name
             Prompt: A brief, open-ended prompt (1-2 sentences) that could have inspired the fanfiction, inviting further story development.
             Search Terms: A comma-separated list of 3-5 crucial keywords (characters, main tropes, or key plot elements) that would be highly effective for searching for similar fanfiction on AO3.
 
@@ -130,8 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("Fetch Request Error:", error);
             // Display network error message
             resultsDisplayElement.innerHTML = `<div class="message-temp error">
-                                                <p>A network error occurred. Please check your internet connection or try again later.</p>
-                                              </div>`;
+                                                  <p>A network error occurred. Please check your internet connection or try again later.</p>
+                                                </div>`;
         }
     });
 });
@@ -165,6 +171,10 @@ function renderFanfictionResult(displayElement, rawContent, userInput) {
         if (parsedContent.word_count) {
             displayHtml += `<p><strong>Word Count:</strong> ${parsedContent.word_count}</p>`;
         }
+        // UPDATED: Check for 'language' property and display
+        if (parsedContent.language) {
+            displayHtml += `<p><strong>Language:</strong> ${parsedContent.language}</p>`;
+        }
         if (parsedContent.prompt) {
             displayHtml += `<p><strong>Prompt:</strong> ${parsedContent.prompt}</p>`;
         }
@@ -178,11 +188,11 @@ function renderFanfictionResult(displayElement, rawContent, userInput) {
     } catch (e) {
         console.error("Error parsing assistant's message content as JSON:", e);
         displayHtml = `<div class="message-temp error">
-                            <p>Oops! I had trouble generating a fanfiction idea in the expected format.</p>
-                            <p>Here's what I received (for debugging):</p>
-                            <pre>${rawContent}</pre>
-                            <p>Please try again!</p>
-                        </div>`;
+                                <p>Oops! I had trouble generating a fanfiction idea in the expected format.</p>
+                                <p>Here's what I received (for debugging):</p>
+                                <pre>${rawContent}</pre>
+                                <p>Please try again!</p>
+                            </div>`;
     }
 
     displayElement.innerHTML = displayHtml;

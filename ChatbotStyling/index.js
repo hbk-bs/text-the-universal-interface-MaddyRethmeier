@@ -66,6 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultsDisplayElement = document.getElementById('results-display');
     const inputElement = document.querySelector('input');
     const formElement = document.querySelector('form');
+    const saveButtonContainer = document.getElementById('save-button-container'); // Get the new save button container
+    const saveHtmlButton = document.getElementById('save-html-button'); // Get the new save button
 
     // Check if the elements exists in the DOM
     if (!resultsDisplayElement) {
@@ -77,6 +79,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!inputElement) {
         throw new Error('Could not find input element');
     }
+    if (!saveButtonContainer) {
+        throw new Error('Could not find element #save-button-container');
+    }
+    if (!saveHtmlButton) {
+        throw new Error('Could not find element #save-html-button');
+    }
+
+    let lastGeneratedHtml = ''; // Variable to store the last generated HTML for saving
 
     formElement.addEventListener('submit', async (event) => {
         event.preventDefault(); // dont reload the page
@@ -85,6 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const content = formData.get('search'); // 'search' as per HTML
         if (!content) {
             resultsDisplayElement.innerHTML = `<div class="message-temp error"><p>Please enter a prompt to generate an idea!</p></div>`;
+            // Hide the save button if there's an error or no content
+            saveButtonContainer.style.display = 'none';
             return; // Exit if no content
         }
 
@@ -97,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Display a temporary "Crawling the Web..." message
         resultsDisplayElement.innerHTML = `<div class="message-temp thinking"><p>Crawling the Web...</p></div>`;
-
+        saveButtonContainer.style.display = 'none'; // Hide the save button while generating
 
         try {
             const response = await fetch(apiEndpoint, {
@@ -116,6 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                                     <p>Details: ${errorText}</p>
                                                   </div>`;
                 console.error("API Response Error:", errorText);
+                saveButtonContainer.style.display = 'none'; // Hide button on error
                 return; // Stop execution
             }
 
@@ -132,90 +145,111 @@ document.addEventListener('DOMContentLoaded', () => {
             // Render the assistant's response directly to the results display, including the user's input
             renderFanfictionResult(resultsDisplayElement, assistantMessageContent, content.toString());
 
+            // Show the save button after a successful generation
+            saveButtonContainer.style.display = 'block';
+
         } catch (error) {
             console.error("Fetch Request Error:", error);
             // Display network error message
             resultsDisplayElement.innerHTML = `<div class="message-temp error">
                                                   <p>A network error occurred. Please check your internet connection or try again later.</p>
                                                 </div>`;
+            saveButtonContainer.style.display = 'none'; // Hide button on error
         }
     });
+
+    saveHtmlButton.addEventListener('click', () => {
+        if (lastGeneratedHtml) {
+            const blob = new Blob([lastGeneratedHtml], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'fanfiction_idea.html'; // Suggested filename
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        } else {
+            alert('No fanfiction idea generated yet to save!');
+        }
+    });
+
+    /**
+     * Renders the fanfiction details into the results display area.
+     * @param {HTMLElement} displayElement - The HTML element where results will be displayed.
+     * @param {string} rawContent - The raw JSON string received from the assistant.
+     * @param {string} userInput - The text that the user searched for.
+     */
+    function renderFanfictionResult(displayElement, rawContent, userInput) {
+        let parsedContent;
+        let displayHtml = '';
+
+        try {
+            parsedContent = JSON.parse(rawContent);
+
+            displayHtml += `<h2>Search Result</h2>`;
+            // Add the "You searched for:" line
+            displayHtml += `<p class="search-query-info">You searched for: "<strong>${userInput}</strong>" sort: best match</p>`;
+
+            if (parsedContent.title) {
+                displayHtml += `<p><strong>Title:</strong> ${parsedContent.title}</p>`;
+            }
+            if (parsedContent.fandom) {
+                displayHtml += `<p><strong>Fandom:</strong> ${parsedContent.fandom}</p>`;
+            }
+            if (parsedContent.tags) {
+                displayHtml += `<p><strong>Tags:</strong> ${parsedContent.tags}</p>`;
+            }
+            if (parsedContent.word_count) {
+                displayHtml += `<p><strong>Word Count:</strong> ${parsedContent.word_count}</p>`;
+            }
+            if (parsedContent.language) {
+                displayHtml += `<p><strong>Language:</strong> ${parsedContent.language}</p>`;
+            }
+            if (parsedContent.prompt) {
+                displayHtml += `<p><strong>Prompt:</strong> ${parsedContent.prompt}</p>`;
+            }
+            if (parsedContent.search_terms) {
+                console.log(parsedContent.search_terms)
+                displayHtml += `<p><strong>Recommended Search Keywords for AO3:</strong> ${parsedContent.search_terms.map(term => `<span><a href="https://archiveofourown.org/works/search?work_search%5Bquery%5D=${encodeURIComponent(term)}" target="_blank" rel="noopener noreferrer">${term}</a></span>`).join( ', ')}</p>`;
+            } else if (parsedContent.tags) {
+                // Fallback to displaying tags if search_terms are missing.
+                // Note: If tags are in a non-English language, these might not be effective search terms.
+                displayHtml += `<p><strong>Recommended Search Keywords for AO3 (from tags):</strong> ${parsedContent.tags}</p>`;
+            }
+
+        } catch (e) {
+            console.error("Error parsing assistant's message content as JSON:", e);
+            displayHtml = `<div class="message-temp error">
+                                    <p>Oops! I had trouble generating a fanfiction idea in the expected format.</p>
+                                    <p>Here's what I received (for debugging):</p>
+                                    <pre>${rawContent}</pre>
+                                    <p>Please try again!</p>
+                                </div>`;
+        }
+
+        displayElement.innerHTML = displayHtml;
+        lastGeneratedHtml = displayHtml; // Store the generated HTML
+    }
+
+
+    /**
+     * Truncates the message history to keep only the most recent messages, preserving the system message.
+     * This is for AI context, not for display.
+     * @param {object} h - The message history object.
+     * @returns {object} The truncated message history object.
+     */
+    function truncateHistory(h) {
+        if (!h || !h.messages || h.messages.length <= 1) {
+            return h; // No truncation needed or possible if only system message or fewer
+        }
+        const { messages } = h;
+        const [system, ...rest] = messages; // Separate system message from the rest
+        if (rest.length > MAX_HISTORY_LENGTH) {
+            // Keep the system message and the last MAX_HISTORY_LENGTH user/assistant messages
+            return { messages: [system, ...rest.slice(-MAX_HISTORY_LENGTH)] };
+        } else {
+            return h; // No truncation needed
+        }
+    }
 });
-
-/**
- * Renders the fanfiction details into the results display area.
- * @param {HTMLElement} displayElement - The HTML element where results will be displayed.
- * @param {string} rawContent - The raw JSON string received from the assistant.
- * @param {string} userInput - The text that the user searched for.
- */
-function renderFanfictionResult(displayElement, rawContent, userInput) {
-    let parsedContent;
-    let displayHtml = '';
-
-    try {
-        parsedContent = JSON.parse(rawContent);
-
-        displayHtml += `<h2>Search Result</h2>`;
-        // Add the "You searched for:" line
-        displayHtml += `<p class="search-query-info">You searched for: "<strong>${userInput}</strong>" sort: best match</p>`;
-
-        if (parsedContent.title) {
-            displayHtml += `<p><strong>Title:</strong> ${parsedContent.title}</p>`;
-        }
-        if (parsedContent.fandom) {
-            displayHtml += `<p><strong>Fandom:</strong> ${parsedContent.fandom}</p>`;
-        }
-        if (parsedContent.tags) {
-            displayHtml += `<p><strong>Tags:</strong> ${parsedContent.tags}</p>`;
-        }
-        if (parsedContent.word_count) {
-            displayHtml += `<p><strong>Word Count:</strong> ${parsedContent.word_count}</p>`;
-        }
-        if (parsedContent.language) {
-            displayHtml += `<p><strong>Language:</strong> ${parsedContent.language}</p>`;
-        }
-        if (parsedContent.prompt) {
-            displayHtml += `<p><strong>Prompt:</strong> ${parsedContent.prompt}</p>`;
-        }
-        if (parsedContent.search_terms) {
-            console.log(parsedContent.search_terms)
-            displayHtml += `<p><strong>Recommended Search Keywords for AO3:</strong> ${parsedContent.search_terms.map(term => `<span><a href="https://archiveofourown.org/works/search?work_search%5Bquery%5D=${term}" target="_blank" rel="noopener noreferrer">${term}</a></span>`).join( ', ')}</p>`;
-        } else if (parsedContent.tags) {
-            // Fallback to displaying tags if search_terms are missing.
-            // Note: If tags are in a non-English language, these might not be effective search terms.
-            displayHtml += `<p><strong>Recommended Search Keywords for AO3 (from tags):</strong> ${parsedContent.tags}</p>`;
-        }
-
-    } catch (e) {
-        console.error("Error parsing assistant's message content as JSON:", e);
-        displayHtml = `<div class="message-temp error">
-                                <p>Oops! I had trouble generating a fanfiction idea in the expected format.</p>
-                                <p>Here's what I received (for debugging):</p>
-                                <pre>${rawContent}</pre>
-                                <p>Please try again!</p>
-                            </div>`;
-    }
-
-    displayElement.innerHTML = displayHtml;
-}
-
-
-/**
- * Truncates the message history to keep only the most recent messages, preserving the system message.
- * This is for AI context, not for display.
- * @param {object} h - The message history object.
- * @returns {object} The truncated message history object.
- */
-function truncateHistory(h) {
-    if (!h || !h.messages || h.messages.length <= 1) {
-        return h; // No truncation needed or possible if only system message or fewer
-    }
-    const { messages } = h;
-    const [system, ...rest] = messages; // Separate system message from the rest
-    if (rest.length > MAX_HISTORY_LENGTH) {
-        // Keep the system message and the last MAX_HISTORY_LENGTH user/assistant messages
-        return { messages: [system, ...rest.slice(-MAX_HISTORY_LENGTH)] };
-    } else {
-        return h; // No truncation needed
-    }
-}

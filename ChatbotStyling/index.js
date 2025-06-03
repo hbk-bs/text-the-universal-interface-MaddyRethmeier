@@ -21,7 +21,7 @@ let messageHistory = {
               "tags": "Luke Skywalker/Han Solo, Angst with a Happy Ending, Jedi Master Luke, Smuggler Han, Alternate Universe - Modern, College AU, Fluff and Angst, Pining, Mutual Pining, First Kiss, Established Relationship, Rated Teen And Up, No Archive Warnings Apply",
               "word_count": "15,000 words",
               "prompt": "Luke Skywalker is struggling with his astrophysics homework, and Han Solo, surprisingly, offers to tutor him, leading to unexpected feelings and late-night study sessions.",
-              "search_terms": "Luke Skywalker, Han Solo, College AU, Star Wars, Fluff, Angst"
+              "search_terms": ["Luke Skywalker", "Han Solo", "College AU", "Star Wars", "Fluff", "Angst"]
             }
             \`\`\`
 
@@ -169,7 +169,8 @@ function renderFanfictionResult(displayElement, rawContent, userInput) {
             displayHtml += `<p><strong>Prompt:</strong> ${parsedContent.prompt}</p>`;
         }
         if (parsedContent.search_terms) {
-            displayHtml += `<p><strong>Recommended Search Keywords for AO3:</strong> ${parsedContent.search_terms}</p>`;
+            console.log(parsedContent.search_terms)
+            displayHtml += `<p><strong>Recommended Search Keywords for AO3:</strong> ${parsedContent.search_terms.map(term => `<span><a href="https://archiveofourown.org/works/search?work_search%5Bquery%5D=${term}">${term}</a></span>`).join( ', ')}</p>`;
         } else if (parsedContent.tags) {
             displayHtml += `<p><strong>Recommended Search Keywords for AO3 (from tags):</strong> ${parsedContent.tags}</p>`;
         }

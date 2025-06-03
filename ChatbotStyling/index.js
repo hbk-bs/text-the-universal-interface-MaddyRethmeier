@@ -50,7 +50,7 @@ let messageHistory = {
 // remix: https://val.town/remix/ff6347-openai-api
 const apiEndpoint = 'https://MaddyR--7d22af21c42c473da4c94b422abf5c9b.web.val.run';
 if (!apiEndpoint.includes('run')) {
-    throw new Error('Please use your own val.town endpoint!!!');
+    throw new Error('Please use your own val.town endpoint!');
 }
 
 const MAX_HISTORY_LENGTH = 10; // Controls how many recent messages to keep in history for AI context
@@ -170,7 +170,7 @@ function renderFanfictionResult(displayElement, rawContent, userInput) {
         }
         if (parsedContent.search_terms) {
             console.log(parsedContent.search_terms)
-            displayHtml += `<p><strong>Recommended Search Keywords for AO3:</strong> ${parsedContent.search_terms.map(term => `<span><a href="https://archiveofourown.org/works/search?work_search%5Bquery%5D=${term}">${term}</a></span>`).join( ', ')}</p>`;
+            displayHtml += `<p><strong>Recommended Search Keywords for AO3:</strong> ${parsedContent.search_terms.map(term => `<span><a href="https://archiveofourown.org/works/search?work_search%5Bquery%5D=${term}" target="_blank" rel="noopener noreferrer">${term}</a></span>`).join( ', ')}</p>`;
         } else if (parsedContent.tags) {
             displayHtml += `<p><strong>Recommended Search Keywords for AO3 (from tags):</strong> ${parsedContent.tags}</p>`;
         }

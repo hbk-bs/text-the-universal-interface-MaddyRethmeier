@@ -3,20 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>p5.js Starter Project</title>
+    <title>AO3 Fanfiction Generator</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<main>
-	<form action="">
-		<input type="text" id="input" name="content">
-		<button id="button" name="button">Click me</button>
-	</form>
-    <div id="sketch"></div>
-    <a href="index.js">souce code</a>
-    </main>
-    <script src="lib/p5.min.js"></script>
+    <header>
+        <div class="banner">
+            <h1>Life is a Fanfiction</h1>
+            <p>Powered by AO3's Fandom Spirit</p>
+        </div>
+    </header>
 
+    <main>
+        <form>
+            <input type="text" name="search" placeholder="Search for...">
+            <button type="submit">Search</button>
+        </form>
+        <div id="results-display">
+            <p>Sometimes life can feel like a fanfiction. What would your story be? Ask me anything!</p>
+        </div>
+        <div id="save-button-container" style="display: none; text-align: center; margin-top: 1rem;">
+            <button id="save-html-button">Save as HTML</button>
+        </div>
+    </main>
     <script src="index.js"></script>
 </body>
 </html>

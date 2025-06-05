@@ -1,278 +1,345 @@
 /* Universal box-sizing and reset for padding/margin */
 * {
-	box-sizing: border-box;
-	padding: 0;
-	margin: 0;
-  }
-  
-  /* Base HTML and Body styling for height and font */
-  html,
-  body {
-	height: 100%;
-	/* AO3-like font stack, prioritizing sans-serif */
-	font-family: Georgia, 'Times New Roman', Times, serif;
-	font-weight: normal;
-	/* AO3 background color */
-	background-color: #f7f7f7;
-	color: #333; /* Standard text color */
-	font-size: 16px; /* Base font size for rem units */
-  }
-  
-  /* --- Header Banner Styles --- */
-  header {
-	background-color: #990000; /* AO3 primary red color */
-	color: #fff;
-	padding: 20px 1rem; /* Added 1rem for horizontal padding */
-	text-align: center;
-	box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Subtle shadow for depth */
-	margin-bottom: 16px; /* Space between banner and main content */
-  }
-  
-  .banner h1 {
-	font-size: 2.5em; /* Scales based on parent font size */
-	margin-bottom: 5px;
-	font-weight: bold;
-	text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-  }
-  
-  .banner p {
-	font-size: 1.1em; /* Scales based on parent font size */
-	opacity: 0.9;
-  }
-  
-  /* --- Main container styling --- */
-  main {
-	max-width: 700px; /* Limits width on large screens */
-	width: calc(100% - 2rem); /* Takes full width minus padding on smaller screens */
-	margin: 0 auto;
-	display: flex;
-	flex-direction: column;
-	gap: 1rem; /* Changed to rem for better scaling */
-	padding: 1rem; /* Uniform padding inside main content */
-	/* AO3 subtle border */
-	border-left: 1px solid #ccc;
-	border-right: 1px solid #ccc;
-	background-color: #fff; /* White background for the main content area */
-	min-height: calc(100vh - 100px - 1rem); /* Adjust based on banner height, ensure it fills screen somewhat */
-	/* The 1rem is for the top and bottom padding of the main element itself */
-  }
-  
-  /* Styling for form elements */
-  form {
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 0.5rem; /* Changed to rem */
-	padding: 0.5rem; /* Changed to rem */
-	background-color: #fff; /* White background for the form area */
-	border-bottom: 1px solid #eee; /* Light separator below search bar */
-	border-radius: 4px 4px 0 0; /* Rounded top corners for the form area */
-  }
-  
-  /* --- Google Search Bar Styling --- */
-  input[type='text'] {
-	flex-grow: 1;
-	height: 44px; /* Google's search bar height */
-	padding: 0 16px; /* Padding for text inside */
-	font-size: 1.1em; /* Slightly larger font */
-	border: 1px solid #dfe1e5; /* Google's light gray border */
-	border-radius: 22px; /* Half of height for pill shape (44px / 2 = 22px) */
-	outline: none; /* Remove default blue outline */
-	box-shadow: none; /* Start with no shadow */
-	transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Smooth transition for focus */
-  }
-  
-  input[type='text']:focus { /* Changed from using & syntax to direct selector */
-	border-color: #ccc; /* Border color on focus, slightly darker */
-	/* Google's subtle box-shadow on focus */
-	box-shadow: 0 1px 6px rgba(32,33,36,.28);
-  }
-  
-  /* --- Button Styling (adjusted for alignment with new input height) --- */
-  button {
-	height: 44px; /* Match the new input height */
-	padding: 0 15px;
-	background-color: #990000; /* AO3 primary button color */
-	color: #fff;
-	border: 1px solid #800000; /* Darker red border */
-	border-radius: 4px;
-	cursor: pointer;
-	font-size: 1em;
-	font-weight: bold;
-	transition: background-color 0.2s ease;
-	flex-shrink: 0; /* Prevent button from shrinking */
-  }
-  
-  button:hover { /* Changed from using & syntax to direct selector */
-	background-color: #660000; /* Darker red on hover */
-	border-color: #4d0000;
-  }
-  
-  button:active { /* Changed from using & syntax to direct selector */
-	background-color: #330000; /* Even darker on active */
-	border-color: #1a0000;
-  }
-  
-  /* --- Styles for the results display area --- */
-  #results-display {
-	width: 100%;
-	flex-grow: 1; /* Allow it to take available space */
-	background-color: #f0f0f0; /* Lighter background for results */
-	padding: 1.25rem; /* Changed to rem */
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	overflow-y: auto; /* Enable scrolling if content is long */
-	line-height: 1.6; /* Improve readability */
-	color: #333;
-  }
-  
-  #results-display h2 { /* Added style for the result heading */
-	color: #990000;
-	margin-bottom: 1em;
-	font-size: 1.6em;
-  }
-  
-  /* --- New style for the "You searched for:" line --- */
-  #results-display .search-query-info {
-	margin-bottom: 1.5em; /* Add some space below the search query info */
-	font-size: 0.95em;
-	color: #666; /* A slightly subdued color */
-  }
-  
-  #results-display .search-query-info strong {
-	color: #333; /* Make the actual search term stand out */
-	font-weight: bold;
-  }
-  
-  #results-display p {
-	margin-bottom: 1em; /* Spacing between paragraphs */
-  }
-  
-  #results-display p:last-child {
-	margin-bottom: 0;
-  }
-  
-  #results-display strong {
-	color: #990000; /* Highlight strong text like AO3 headings */
-  }
-  
-  /* Styles for temporary messages within results-display */
-  #results-display .message-temp {
-	padding: 10px;
-	border-radius: 4px;
-	margin-bottom: 10px;
-	text-align: center;
-  }
-  
-  #results-display .message-temp.thinking {
-	background-color: #fcf8e3; /* Light yellow for thinking messages */
-	color: #8a6d3b; /* Darker text for thinking messages */
-	border: 1px solid #faebcc;
-	font-style: italic;
-  }
-  
-  #results-display .message-temp.error {
-	background-color: #f2dede; /* Light red for error messages */
-	color: #a94442; /* Darker text for error messages */
-	border: 1px solid #ebccd1;
-  }
-  
-  
-  /* --- Responsive Adjustments --- */
-  
-  /* For screens smaller than 768px (common tablet breakpoint) */
-  @media (max-width: 768px) {
-	body {
-	  font-size: 15px; /* Slightly reduce base font size for tablets */
-	}
-  
-	main {
-	  margin: 0 0.5rem; /* Smaller side margins on tablets */
-	  width: calc(100% - 1rem); /* Ensures 0.5rem padding on each side */
-	  border-left: none; /* Remove side borders on smaller screens */
-	  border-right: none;
-	  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Add a subtle shadow to main content */
-	  border-radius: 4px; /* Round corners on the main content area */
-	}
-  
-	header {
-	  padding: 15px 1rem;
-	}
-  
-	.banner h1 {
-	  font-size: 2em; /* Smaller heading on smaller screens */
-	}
-  
-	.banner p {
-	  font-size: 1em;
-	}
-  
-	form {
-	  padding: 0.75rem;
-	  gap: 0.75rem;
-	  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
-	  border-radius: 4px; /* Ensure form also has rounded corners */
-	}
-  
-	input[type='text'] {
-	  font-size: 1em; /* Adjust input font size */
-	  height: 40px; /* Slightly reduce input height */
-	  border-radius: 20px; /* Adjust border-radius accordingly */
-	}
-  
-	button {
-	  height: 40px; /* Match input height */
-	  font-size: 0.9em; /* Adjust button font size */
-	}
-  
-	#results-display {
-	  padding: 1rem; /* Slightly reduce padding */
-	}
-  }
-  
-  /* For screens smaller than 480px (common phone breakpoint) */
-  @media (max-width: 480px) {
-	body {
-	  font-size: 14px; /* Further reduce base font size for phones */
-	}
-  
-	main {
-	  margin: 0; /* No side margins, let it stretch to full width */
-	  width: 100%; /* Full width */
-	  padding: 0.5rem; /* Smaller padding inside main */
-	  min-height: calc(100vh - 80px); /* Adjust min-height for smaller header */
-	}
-  
-	header {
-	  padding: 10px 0.5rem; /* Smaller padding for header */
-	}
-  
-	.banner h1 {
-	  font-size: 1.8em; /* Even smaller heading on phones */
-	}
-  
-	.banner p {
-	  font-size: 0.9em;
-	}
-  
-	form {
-	  flex-direction: column; /* Stack input and button vertically */
-	  padding: 0.5rem;
-	  gap: 0.5rem;
-	}
-  
-	input[type='text'],
-	button {
-	  width: 100%; /* Make input and button full width when stacked */
-	  height: 38px; /* Slightly smaller height */
-	}
-  
-	input[type='text'] {
-	  border-radius: 19px; /* Adjust border-radius */
-	}
-  
-	#results-display {
-	  padding: 0.75rem; /* Smallest padding for results area */
-	}
-  }
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+/* Base HTML and Body styling for height and font */
+html,
+body {
+    height: 100%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: normal;
+    background-color: #f7f7f7;
+    color: #333;
+    font-size: 16px;
+}
+
+/* --- Header Banner Styles --- */
+header {
+    background-color: #990000;
+    color: #fff;
+    padding: 20px 1rem;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    margin-bottom: 16px;
+}
+
+.banner h1 {
+    font-size: 2.5em;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.banner p {
+    font-size: 1.1em;
+    opacity: 0.9;
+}
+
+/* --- New Content Wrapper for Layout --- */
+.content-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 1rem; /* Space between main content and ads */
+    width: 100%; /* Take full available width */
+    padding: 0 1rem; /* Outer padding to ensure space from screen edges */
+    min-height: calc(100vh - 96px); /* Roughly viewport height minus header height */
+}
+
+/* --- Ad Banner Styles --- */
+.ad-banner {
+    background-color: #e6e6e6;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    text-align: center;
+    flex-shrink: 0;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: #555;
+    display: none; /* Hidden by default for mobile-first */
+    flex-direction: column; /* For vertical alignment of text and image */
+    justify-content: space-evenly; /* **CHANGED: Distributes space evenly between items** */
+    align-items: stretch; /* Allow content to stretch horizontally */
+    line-height: 1.4;
+    overflow-y: auto; /* Enable scrolling for ad content if it's too long when sticky */
+
+    position: sticky;
+    top: 96px;
+
+    flex-grow: 1;
+    max-width: 250px; /* Set a reasonable maximum width for each ad banner */
+}
+
+/* **NEW CSS FOR H2 IN AD BANNERS** */
+.ad-banner h2 {
+    font-size: 1.3em; /* Slightly larger for prominence */
+    color: #660000; /* A darker red to stand out but fit the theme */
+    margin-bottom: 0.75rem; /* Space below the heading */
+    font-weight: bold;
+    line-height: 1.2; /* Tighter line-height for headings */
+}
+/* **END NEW CSS** */
+
+/* CSS for Images in Ad Banners */
+.ad-banner img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 0.75rem;
+    border-radius: 4px;
+}
+
+.ad-banner p {
+    margin-bottom: 0.5rem;
+}
+.ad-banner p:last-child {
+    margin-bottom: 0;
+}
+
+
+/* --- Main container styling --- */
+main {
+    max-width: 700px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    background-color: #fff;
+    min-height: calc(100vh - 100px - 1rem);
+    flex-shrink: 0;
+    margin: 0;
+}
+
+/* Styling for form elements */
+form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+    border-radius: 4px 4px 0 0;
+}
+
+/* --- Google Search Bar Styling --- */
+input[type='text'] {
+    flex-grow: 1;
+    height: 44px;
+    padding: 0 16px;
+    font-size: 1.1em;
+    border: 1px solid #dfe1e5;
+    border-radius: 22px;
+    outline: none;
+    box-shadow: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type='text']:focus {
+    border-color: #ccc;
+    box-shadow: 0 1px 6px rgba(32,33,36,.28);
+}
+
+/* --- Button Styling (adjusted for alignment with new input height) --- */
+button {
+    height: 44px;
+    padding: 0 15px;
+    background-color: #990000;
+    color: #fff;
+    border: 1px solid #800000;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+    flex-shrink: 0;
+}
+
+button:hover {
+    background-color: #660000;
+    border-color: #4d0000;
+}
+
+button:active {
+    background-color: #330000;
+    border-color: #1a0000;
+}
+
+/* --- Styles for the results display area --- */
+#results-display {
+    width: 100%;
+    flex-grow: 1;
+    background-color: #f0f0f0;
+    padding: 1.25rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow-y: auto;
+    line-height: 1.6;
+    color: #333;
+}
+
+#results-display h2 {
+    color: #990000;
+    margin-bottom: 1em;
+    font-size: 1.6em;
+}
+
+#results-display .search-query-info {
+    margin-bottom: 1.5em;
+    font-size: 0.95em;
+    color: #666;
+}
+
+#results-display .search-query-info strong {
+    color: #333;
+    font-weight: bold;
+}
+
+#results-display p {
+    margin-bottom: 1em;
+}
+
+#results-display p:last-child {
+    margin-bottom: 0;
+}
+
+#results-display strong {
+    color: #990000;
+}
+
+/* Styles for temporary messages within results-display */
+#results-display .message-temp {
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#results-display .message-temp.thinking {
+    background-color: #fcf8e3;
+    color: #8a6d3b;
+    border: 1px solid #faebcc;
+    font-style: italic;
+}
+
+#results-display .message-temp.error {
+    background-color: #f2dede;
+    color: #a94442;
+    border: 1px solid #ebccd1;
+}
+
+
+/* --- Responsive Adjustments --- */
+
+/* Show ads only on larger screens (992px and wider) */
+@media (min-width: 992px) {
+    .ad-banner {
+        display: flex; /* Make sure they are visible */
+    }
+}
+
+/* For screens smaller than 768px (common tablet breakpoint) */
+@media (max-width: 768px) {
+    body {
+        font-size: 15px;
+    }
+
+    .content-wrapper {
+        padding: 0;
+    }
+
+    main {
+        margin: 0 0.5rem;
+        width: calc(100% - 1rem);
+        border-left: none;
+        border-right: none;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        border-radius: 4px;
+    }
+
+    header {
+        padding: 15px 1rem;
+    }
+
+    .banner h1 {
+        font-size: 2em;
+    }
+
+    .banner p {
+        font-size: 1em;
+    }
+
+    form {
+        padding: 0.75rem;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        border-radius: 4px;
+    }
+
+    input[type='text'] {
+        font-size: 1em;
+        height: 40px;
+        border-radius: 20px;
+    }
+
+    button {
+        height: 40px;
+        font-size: 0.9em;
+    }
+
+    #results-display {
+        padding: 1rem;
+    }
+}
+
+/* For screens smaller than 480px (common phone breakpoint) */
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+
+    main {
+        margin: 0;
+        width: 100%;
+        padding: 0.5rem;
+        min-height: calc(100vh - 80px);
+    }
+
+    header {
+        padding: 10px 0.5rem;
+    }
+
+    .banner h1 {
+        font-size: 1.8em;
+    }
+
+    .banner p {
+        font-size: 0.9em;
+    }
+
+    form {
+        flex-direction: column;
+        padding: 0.5rem;
+        gap: 0.5rem;
+    }
+
+    input[type='text'],
+    button {
+        width: 100%;
+        height: 38px;
+    }
+
+    input[type='text'] {
+        border-radius: 19px;
+    }
+
+    #results-display {
+        padding: 0.75rem;
+    }
+}

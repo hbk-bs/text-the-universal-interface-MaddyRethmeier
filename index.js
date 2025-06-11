@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 displayHtml += `<p><strong>Tags:</strong> ${parsedContent.tags}</p>`;
             }
             if (parsedContent.word_count) {
-                displayHtml += `<p><strong>Word Count:</strong> ${parsedContent.word_count}</p>`;
+                displayHtml += `<p><strong>Suggested Word Count:</strong> ${parsedContent.word_count}</p>`;
             }
             if (parsedContent.language) {
                 displayHtml += `<p><strong>Language:</strong> ${parsedContent.language}</p>`;

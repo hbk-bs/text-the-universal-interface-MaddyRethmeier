@@ -1,3 +1,5 @@
+For this project I prompted the chat bot in such a way that it was forced to only answer in AO3 Fanfiction story descriptions. This includes a titel that is vaguely relevant to the question, a genre, tags, word count, a prompt that describes the story and direct links to search by tag filters on AO3. The output given by the chat bot is not really relevant to the question asked. The question asked by the user acts as a sort of inspiration to "write" a summary to an imagined fafiction. Added features are the add banners for the desktop display and a button to save the output of the chat bot as an html file on the users device. Most of the time the chat bot answers in the same language as the given question. 
+
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/T2g7psth)
 # Project Briefing: Text, the Universal Interface
 

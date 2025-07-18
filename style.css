@@ -60,7 +60,7 @@ header {
     color: #555;
     display: none; /* Hidden by default for mobile-first */
     flex-direction: column; /* For vertical alignment of text and image */
-    justify-content: space-evenly; /* **CHANGED: Distributes space evenly between items** */
+    justify-content: space-evenly;
     align-items: stretch; /* Allow content to stretch horizontally */
     line-height: 1.4;
     overflow-y: auto; /* Enable scrolling for ad content if it's too long when sticky */

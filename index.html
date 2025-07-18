@@ -8,13 +8,61 @@
 </head>
 <body>
     <header>
+        <div id="backlink-todo">
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Georgia&display=swap');
+        
+                #backlink-todo {
+                    --color-accent: #660000; /* Matches hover color of buttons */
+                    position: static; /* Change from absolute to static */
+                    top: initial; /* Reset top */
+                    right: initial; /* Reset right */
+                    border: 1px dashed #660000; /* Matches border color */
+                    background-color: #800000; /* Matches button background */
+                    padding: 8px;
+                    cursor: pointer;
+                    color: white; /* Text color */
+                    font-size: 0.8rem;
+                    font-weight: bold;
+                    transition: all 0.3s ease;
+                    transform: none; /* Remove transform for header placement */
+                    box-shadow: none; /* Remove box-shadow */
+                    font-family: Georgia, 'Times New Roman', Times, serif;
+                    z-index: 10;
+                    text-align: center; /* Center the text */
+                    margin-bottom: 10px; /* Add some space below it */
+                }
+                #backlink-todo:hover {
+                    transform: none; /* Remove transform on hover */
+                }
+                #backlink-todo a {
+                    text-decoration: none;
+                    color: inherit;
+                    background-image: linear-gradient(to right,
+                                        var(--color-accent) 0%,
+                                        var(--color-accent) 100%);
+                    background-size: 0% 100%;
+                    background-position: left center;
+                    background-repeat: no-repeat;
+                    transition: background-size 0.2s ease-in-out;
+                    padding: 0.5rem;
+                    display: inline-block;
+                }
+                #backlink-todo a:hover {
+                    background-size: 100% 100%;
+                    color: white;
+                }
+            </style>
+            <a href="https://hbk-bs.github.io/documentation-2025-MaddyRethmeier/">Back to Documentation</a>
+        </div>
         <div class="banner">
             <h1>Life is a Fanfiction</h1>
             <p>Powered by AO3's Fandom Spirit</p>
         </div>
     </header>
 
-    <div class="content-wrapper"> <div class="ad-banner left-ad">
+    <div class="content-wrapper">
+        <div class="ad-banner left-ad">
             <img src="castle.jpg" alt="Left Ad Castle">
             <h2>Thousands of adventures await you here!</h2>
             <p>More than 15,120,000 works wait for you.</p>
@@ -33,52 +81,6 @@
             <div id="save-button-container" style="display: none; text-align: center; margin-top: 1rem;">
                 <button id="save-html-button">Save as HTML</button>
             </div>
-            <div id="backlink-todo">
-                <style>
-                    @import url('https://fonts.googleapis.com/css2?family=Georgia&display=swap');
-            
-                    #backlink-todo {
-                        --color-accent: #660000; /* Matches hover color of buttons */
-                        position: absolute;
-                        top: 8px;
-                        right: 8px;
-                        border: 1px dashed #660000; /* Matches border color */
-                        background-color: #800000; /* Matches button background */
-                        padding: 8px;
-                        cursor: pointer;
-                        color: white; /* Text color */
-                        font-size: 0.8rem;
-                        font-weight: bold;
-                        transition: all 0.3s ease;
-                        transform: rotate(-2deg) scale(0.9);
-                        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
-                        font-family: Georgia, 'Times New Roman', Times, serif;
-                        z-index: 10;
-                    }
-                    #backlink-todo:hover {
-                        transform: rotate(2deg) scale(1);
-                    }
-                    #backlink-todo a {
-                        text-decoration: none;
-                        color: inherit;
-                        background-image: linear-gradient(to right,
-                                            var(--color-accent) 0%,
-                                            var(--color-accent) 100%);
-                        background-size: 0% 100%;
-                        background-position: left center;
-                        background-repeat: no-repeat;
-                        transition: background-size 0.2s ease-in-out;
-                        padding: 0.5rem;
-                        display: inline-block;
-                    }
-                    #backlink-todo a:hover {
-                        background-size: 100% 100%;
-                        color: white;
-                    }
-                </style>
-                <a href="https://hbk-bs.github.io/documentation-2025-MaddyRethmeier/">Back to Documentation</a>
-            </div>
-            
         </main>
 
         <div class="ad-banner right-ad">
@@ -88,6 +90,7 @@
             <p>Check out our latest!</p>
             <p>New fanfics posted daily.</p>
         </div>
-    </div> <script src="index.js"></script>
+    </div>
+    <script src="index.js"></script>
 </body>
 </html>

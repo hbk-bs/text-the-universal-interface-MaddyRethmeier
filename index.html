@@ -33,49 +33,52 @@
             <div id="save-button-container" style="display: none; text-align: center; margin-top: 1rem;">
                 <button id="save-html-button">Save as HTML</button>
             </div>
-            <div id="backlink">
+            <div id="backlink-todo">
                 <style>
-                    #backlink {
-                        --color-accent: hsl(198, 100%, 50%);
+                    @import url('https://fonts.googleapis.com/css2?family=Georgia&display=swap');
+            
+                    #backlink-todo {
+                        --color-accent: #660000; /* Matches hover color of buttons */
                         position: absolute;
                         top: 8px;
                         right: 8px;
-                        border: 1px dashed black;
-                        background-color: white;
+                        border: 1px dashed #660000; /* Matches border color */
+                        background-color: #800000; /* Matches button background */
                         padding: 8px;
                         cursor: pointer;
-                        color: black;
+                        color: white; /* Text color */
                         font-size: 0.8rem;
                         font-weight: bold;
                         transition: all 0.3s ease;
                         transform: rotate(-2deg) scale(0.9);
                         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
-                        a {
-                            text-decoration: none;
-                            color: black;
-                            color: inherit;
-                            text-decoration: underline;
-                            background-image: linear-gradient(to right,
-                                    var(--color-accent) 0%,
-                                    var(--color-accent) 100%);
-                            background-size: 0% 100%;
-                            background-position: left center;
-                            background-repeat: no-repeat;
-                            transition: background-size 0.2s ease-in-out;
-                            padding: 0.5rem;
-                        }
-                        a:hover {
-                            background-size: 100% 100%;
-                            color: white;
-                        }
-        
+                        font-family: Georgia, 'Times New Roman', Times, serif;
+                        z-index: 10;
                     }
-                    #backlink:hover {
+                    #backlink-todo:hover {
                         transform: rotate(2deg) scale(1);
                     }
+                    #backlink-todo a {
+                        text-decoration: none;
+                        color: inherit;
+                        background-image: linear-gradient(to right,
+                                            var(--color-accent) 0%,
+                                            var(--color-accent) 100%);
+                        background-size: 0% 100%;
+                        background-position: left center;
+                        background-repeat: no-repeat;
+                        transition: background-size 0.2s ease-in-out;
+                        padding: 0.5rem;
+                        display: inline-block;
+                    }
+                    #backlink-todo a:hover {
+                        background-size: 100% 100%;
+                        color: white;
+                    }
                 </style>
-                <a href="https://rundgang2025.qawsed.site">Back to the Rundgang 2025</a>
+                <a href="https://hbk-bs.github.io/documentation-2025-MaddyRethmeier/">Back to Documentation</a>
             </div>
+            
         </main>
 
         <div class="ad-banner right-ad">

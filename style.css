@@ -303,7 +303,7 @@ button:active {
     }
 
     header {
-        padding: 62px 1rem 15px 1rem; /* Adjusted top padding: (Backlink height ~42px) + (Original header top padding 15px) + 5px buffer = 62px */
+        padding: 67px 1rem 15px 1rem; /* Adjusted top padding: (Backlink height ~42px) + (Original header top padding 15px) + 10px buffer = 67px */
     }
 
     .banner h1 {
@@ -358,7 +358,7 @@ button:active {
     }
 
     header {
-        padding: 57px 0.5rem 10px 0.5rem; /* Adjusted top padding: (Backlink height ~42px) + (Original header top padding 10px) + 5px buffer = 57px */
+        padding: 62px 0.5rem 10px 0.5rem; /* Adjusted top padding: (Backlink height ~42px) + (Original header top padding 10px) + 10px buffer = 62px */
     }
 
     .banner h1 {

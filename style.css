@@ -14,7 +14,8 @@ body {
     background-color: #f7f7f7;
     color: #333;
     font-size: 16px;
-    padding-top: 50px; /* Added padding-top to account for fixed backlink */
+    /* Adjusted padding-top to exactly match the fixed backlink height */
+    padding-top: 36px; /* 10px (top padding) + ~16px (font-size 1rem) + 10px (bottom padding) = 36px */
 }
 
 /* --- Backlink styles (from textuniversalinterface.html) --- */
@@ -25,32 +26,35 @@ body {
 #backlink-todo {
     width: 100%;
     background-color: #800000;
-    padding: 10px 0;
-    color: white;
+    padding: 10px 0; /* 10px top/bottom padding */
+    color: white; /* Explicitly set color for the parent */
     font-size: 1rem;
     font-weight: bold;
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     box-sizing: border-box;
     font-family: Georgia, 'Times New Roman', Times, serif;
-    position: fixed; /* Changed to fixed */
-    top: 0; /* Pinned to top */
-    left: 0; /* Pinned to left */
-    transform: none;
-    z-index: 1000; /* Ensure it's on top */
+    position: fixed; /* Pinned to top */
+    top: 0; /* Pinned to top edge */
+    left: 0; /* Pinned to left edge */
+    transform: none; /* Ensure no unwanted transforms */
+    z-index: 1000; /* Ensure it's on top of other content */
 }
+
 #backlink-todo a {
-    text-decoration: none;
-    color: inherit;
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit color from parent (#backlink-todo) which is white */
     display: inline-block;
     padding: 0 15px;
     transition: background-color 0.3s ease;
 }
+
 #backlink-todo a:hover {
     background-color: var(--color-accent);
-    color: white;
+    color: white; /* Ensure text color remains white on hover */
 }
 /* --- END Backlink styles --- */
+
 
 /* --- Header Banner Styles --- */
 header {
@@ -59,7 +63,9 @@ header {
     padding: 20px 1rem;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    margin-bottom: 16px;
+    /* margin-bottom: 16px; */ /* REMOVED this line */
+    margin-bottom: 0; /* Ensure no margin at the bottom */
+    margin-top: 0; /* Ensure no top margin pushes it down */
 }
 
 .banner h1 {

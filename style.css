@@ -14,8 +14,7 @@ body {
     background-color: #f7f7f7;
     color: #333;
     font-size: 16px;
-    /* Adjusted padding-top to exactly match the fixed backlink height */
-    padding-top: 36px; /* 10px (top padding) + ~16px (font-size 1rem) + 10px (bottom padding) = 36px */
+    padding-top: 36px; /* Adjusted to exactly match the fixed backlink height (10px top+bottom padding + 16px font-size) */
 }
 
 /* --- Backlink styles (from textuniversalinterface.html) --- */
@@ -26,7 +25,7 @@ body {
 #backlink-todo {
     width: 100%;
     background-color: #800000;
-    padding: 10px 0; /* 10px top/bottom padding */
+    padding: 10px 0;
     color: white; /* Explicitly set color for the parent */
     font-size: 1rem;
     font-weight: bold;
@@ -60,12 +59,10 @@ body {
 header {
     background-color: #990000;
     color: #fff;
-    padding: 20px 1rem;
+    padding: 0 1rem 20px 1rem; /* Removed top padding, kept bottom padding */
     text-align: center;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    /* margin-bottom: 16px; */ /* REMOVED this line */
-    margin-bottom: 0; /* Ensure no margin at the bottom */
-    margin-top: 0; /* Ensure no top margin pushes it down */
+    margin: 0; /* Ensure no margins around the header */
 }
 
 .banner h1 {
@@ -290,7 +287,7 @@ button:active {
 @media (max-width: 768px) {
     body {
         font-size: 15px;
-        padding-top: 60px; /* Adjusted padding for smaller screens */
+        padding-top: 42px; /* Adjusted padding for smaller screens to match backlink height */
     }
 
     .content-wrapper {
@@ -307,7 +304,7 @@ button:active {
     }
 
     header {
-        padding: 15px 1rem;
+        padding: 0 1rem 15px 1rem; /* Adjusted header padding for smaller screens */
     }
 
     .banner h1 {
@@ -351,7 +348,7 @@ button:active {
 @media (max-width: 480px) {
     body {
         font-size: 14px;
-        padding-top: 60px; /* Adjusted padding for smaller screens */
+        padding-top: 42px; /* Adjusted padding for smaller screens to match backlink height */
     }
 
     main {
@@ -362,7 +359,7 @@ button:active {
     }
 
     header {
-        padding: 10px 0.5rem;
+        padding: 0 0.5rem 10px 0.5rem; /* Adjusted header padding for smaller screens */
     }
 
     .banner h1 {

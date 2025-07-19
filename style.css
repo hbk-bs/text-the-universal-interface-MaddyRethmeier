@@ -14,7 +14,43 @@ body {
     background-color: #f7f7f7;
     color: #333;
     font-size: 16px;
+    padding-top: 50px; /* Added padding-top to account for fixed backlink */
 }
+
+/* --- Backlink styles (from textuniversalinterface.html) --- */
+:root {
+    --color-accent: #660000;
+}
+
+#backlink-todo {
+    width: 100%;
+    background-color: #800000;
+    padding: 10px 0;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    position: fixed; /* Changed to fixed */
+    top: 0; /* Pinned to top */
+    left: 0; /* Pinned to left */
+    transform: none;
+    z-index: 1000; /* Ensure it's on top */
+}
+#backlink-todo a {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+    padding: 0 15px;
+    transition: background-color 0.3s ease;
+}
+#backlink-todo a:hover {
+    background-color: var(--color-accent);
+    color: white;
+}
+/* --- END Backlink styles --- */
 
 /* --- Header Banner Styles --- */
 header {
@@ -248,6 +284,7 @@ button:active {
 @media (max-width: 768px) {
     body {
         font-size: 15px;
+        padding-top: 60px; /* Adjusted padding for smaller screens */
     }
 
     .content-wrapper {
@@ -296,12 +333,19 @@ button:active {
     #results-display {
         padding: 1rem;
     }
+
+    /* Backlink responsive adjustment */
+    #backlink-todo {
+        font-size: 1.1rem;
+        padding: 12px 0;
+    }
 }
 
 /* For screens smaller than 480px (common phone breakpoint) */
 @media (max-width: 480px) {
     body {
         font-size: 14px;
+        padding-top: 60px; /* Adjusted padding for smaller screens */
     }
 
     main {

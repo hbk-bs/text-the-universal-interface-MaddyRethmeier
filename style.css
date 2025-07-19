@@ -14,7 +14,7 @@ body {
     background-color: #f7f7f7;
     color: #333;
     font-size: 16px;
-    padding-top: 36px; /* Adjusted to exactly match the fixed backlink height (10px top+bottom padding + 16px font-size) */
+    padding-top: 0; /* REMOVED body padding-top */
 }
 
 /* --- Backlink styles (from textuniversalinterface.html) --- */
@@ -57,9 +57,9 @@ body {
 
 /* --- Header Banner Styles --- */
 header {
-    background-color: #990000;
+    background-color: #990000; /* This red will now fill the space */
     color: #fff;
-    padding: 0 1rem 20px 1rem; /* Removed top padding, kept bottom padding */
+    padding: 56px 1rem 20px 1rem; /* Adjusted top padding: (Backlink height ~36px) + (Original header top padding 20px) = 56px */
     text-align: center;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     margin: 0; /* Ensure no margins around the header */
@@ -84,7 +84,7 @@ header {
     gap: 1rem; /* Space between main content and ads */
     width: 100%; /* Take full available width */
     padding: 0 1rem; /* Outer padding to ensure space from screen edges */
-    min-height: calc(100vh - 96px); /* Roughly viewport height minus header height */
+    min-height: calc(100vh - 92px); /* Adjusted based on new header height */
 }
 
 /* --- Ad Banner Styles --- */
@@ -106,7 +106,6 @@ header {
 
     position: sticky;
     top: 96px;
-
     flex-grow: 1;
     max-width: 250px; /* Set a reasonable maximum width for each ad banner */
 }
@@ -149,7 +148,7 @@ main {
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
     background-color: #fff;
-    min-height: calc(100vh - 100px - 1rem);
+    min-height: calc(100vh - 100px - 1rem); /* Might need further tweaking after header height change */
     flex-shrink: 0;
     margin: 0;
 }
@@ -287,7 +286,7 @@ button:active {
 @media (max-width: 768px) {
     body {
         font-size: 15px;
-        padding-top: 42px; /* Adjusted padding for smaller screens to match backlink height */
+        padding-top: 0; /* REMOVED body padding-top for responsive */
     }
 
     .content-wrapper {
@@ -304,7 +303,7 @@ button:active {
     }
 
     header {
-        padding: 0 1rem 15px 1rem; /* Adjusted header padding for smaller screens */
+        padding: 57px 1rem 15px 1rem; /* Adjusted header padding for smaller screens */
     }
 
     .banner h1 {
@@ -348,7 +347,7 @@ button:active {
 @media (max-width: 480px) {
     body {
         font-size: 14px;
-        padding-top: 42px; /* Adjusted padding for smaller screens to match backlink height */
+        padding-top: 0; /* REMOVED body padding-top for responsive */
     }
 
     main {
@@ -359,7 +358,7 @@ button:active {
     }
 
     header {
-        padding: 0 0.5rem 10px 0.5rem; /* Adjusted header padding for smaller screens */
+        padding: 52px 0.5rem 10px 0.5rem; /* Adjusted header padding for smaller screens */
     }
 
     .banner h1 {
